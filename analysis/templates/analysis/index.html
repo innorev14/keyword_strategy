@@ -13,15 +13,17 @@
     <div class="container">
         <div class="col-12">
             <br>
-            <h1>네이버 키워드 분석</h1>
+            <h1 align="center">네이버 키워드 분석</h1>
+            <br>
             <div class="form-group">
                 <span class="align-center">
                 <form action="{% url 'analysis:index' %}" method="GET" class="form-horizontal">
                     <div class="row">
-                        <div class="col-8" >
+                        <div class="col-3"></div>
+                        <div class="col-6">
                             <input type="text" name="q" placeholder="키워드를 입력하세요" class="form-control">
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <input type="submit" value="검색" class="btn btn-outline-primary" >
                         </div>
                     </div>
@@ -171,4 +173,5 @@
             </div>
         </div>
     </div>
+    <br>
 {% endblock %}
