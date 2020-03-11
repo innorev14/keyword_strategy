@@ -139,3 +139,12 @@ class InsideView(ListView):
 
         return render(request, 'analysis/index.html', context=context)
 
+class ExposurePC(ListView):
+    template_name = 'analysis/exppc.html'
+
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        qq = "{}".format(q)
+        encText = urllib.parse.quote("{}".format(q))
+
+        return render(request, 'analysis/exppc.html')
