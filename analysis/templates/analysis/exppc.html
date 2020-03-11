@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+{#            <div class="form-group">#}
+{#                <span class="align-center">#}
+                <form action="{% url 'analysis:index' %}" method="GET" class="form-inline justify-content-center">
+{#                    <div class="row">#}
+{#                        <div class="col-3"></div>#}
+{#                        <div class="col-6">#}
+                            <input type="text" name="q" placeholder="키워드를 입력하세요" class="form-control col-6 mr-lg-2">
+{#                        </div>#}
+{#                        <div class="col-3">#}
+                            <button class="btn btn-outline-success my-2 my-lg-0" type="submit">검색</button>
+{#                            <input type="submit" value="검색" class="btn btn-outline-primary" >#}
+{#                        </div>#}
+{#                    </div>#}
+                </form>
+{#                </span>#}
+{#            </div>#}
     <div class="text-center">
         <img src="/media/naver_main.png" class="rounded"  width="300" alt="...">
         <img src="/media/naver_main3.png" class="rounded" width="300" alt="...">
@@ -14,4 +29,7 @@
         <img src="/media/naver_main6.png" class="rounded" width="300" alt="...">
         <img src="/media/naver_main8.png" class="rounded" width="300" alt="...">
     </div>
+    {% for item in pc %}
+        {{ blog }}
+    {% endfor %}
 {% endblock %}

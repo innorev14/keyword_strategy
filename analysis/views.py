@@ -9,6 +9,7 @@ from django.views.generic import ListView
 from config import settings
 from naver_ads_api import SearchAdsSession
 from naver_keyword_strategy import KeywordInfoAPI
+from naver_main_crawling import NaverCrawl
 from naver_trend_api import NaverTrendAPI
 from .models import MonthAnalysis
 
@@ -147,4 +148,11 @@ class ExposurePC(ListView):
         qq = "{}".format(q)
         encText = urllib.parse.quote("{}".format(q))
 
-        return render(request, 'analysis/exppc.html')
+        crawl = NaverCrawl()
+        pc = crawl.do_crawl(encText)
+
+        context = {
+            'pc': pc,
+        }
+
+        return render(request, 'analysis/exppc.html', context=context)
