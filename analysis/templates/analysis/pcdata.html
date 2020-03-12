@@ -1,0 +1,32 @@
+{% if pc.blog %}
+    {% for item in pc.blog %}
+        {{ item.date }}
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+        {{ item.writer }}
+        <br>
+    {% endfor %}
+{% endif %}
+{% if pc.cafe %}
+    {% for item in pc.cafe %}
+        {{ item.date }}
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+        {{ item.writer }}
+        <br>
+    {% endfor %}
+{% endif %}
+{% if pc.kin %}
+    {% for item in pc.kin %}
+        {{ item.date }}
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+        {{ item.writer }}
+        <br>
+    {% endfor %}
+{% endif %}
+{% if pc.post %}
+    {% for item in pc.post %}
+        {{ item.date }}
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+        {{ item.writer }}
+        <br>
+    {% endfor%}
+{% endif %}

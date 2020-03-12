@@ -1,6 +1,7 @@
 import json
 import urllib
 from datetime import date
+from pprint import pprint
 
 from django.conf import settings
 from tqdm import tqdm
@@ -98,7 +99,7 @@ class KeywordInfoAPI:
 
         except Exception as e:
             pass
-
+        pprint(self.result)
         return self.result
 
 

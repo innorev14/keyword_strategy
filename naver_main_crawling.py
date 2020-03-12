@@ -2,44 +2,47 @@ from pprint import pprint
 
 import requests
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from bs4 import BeautifulSoup
 
+from config import settings
+
+
 class NaverCrawl:
     def do_crawl(self, keyword):
         # Selenium으로 브라우저 구동
         driver = webdriver.Chrome('./analysis/module/chromedriver.exe')
+        # driver.implicitly_wait(3)  # seconds
+        driver.get('http://naver.com')  # 지정 주소의 웹페이지 방문
         try:
-            # driver.set_window_size(1920, 5060)      #the trick
-            driver.get('http://naver.com') # 지정 주소의 웹페이지 방문
-
             # 현재 페이지 내에서 name=query 요소 찾고 검색어 입력 후에, form submit
             field = driver.find_element_by_name('query')
             field.send_keys(keyword)
             field.submit()
             print('wait 2 secens...')
 
-            # driver.save_screenshot("./media/naver_main.png")
-            # driver.execute_script("window.scrollTo(0, 660);")
-            # driver.save_screenshot("./media/naver_main2.png")
-            # driver.execute_script("window.scrollTo(0, 660*2);")
-            # driver.save_screenshot("./media/naver_main3.png")
-            # driver.execute_script("window.scrollTo(0, 660*3);")
-            # driver.save_screenshot("./media/naver_main4.png")
-            # driver.execute_script("window.scrollTo(0, 660*4);")
-            # driver.save_screenshot("./media/naver_main5.png")
-            # driver.execute_script("window.scrollTo(0, 660*5);")
-            # driver.save_screenshot("./media/naver_main6.png")
-            # driver.execute_script("window.scrollTo(0, 660*6);")
-            # driver.save_screenshot("./media/naver_main7.png")
-            # driver.execute_script("window.scrollTo(0, 660*7);")
-            # driver.save_screenshot("./media/naver_main8.png")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main.png")
+            driver.execute_script("window.scrollTo(0, 660);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main2.png")
+            driver.execute_script("window.scrollTo(0, 660*2);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main3.png")
+            driver.execute_script("window.scrollTo(0, 660*3);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main4.png")
+            driver.execute_script("window.scrollTo(0, 660*4);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main5.png")
+            driver.execute_script("window.scrollTo(0, 660*5);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main6.png")
+            driver.execute_script("window.scrollTo(0, 660*6);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main7.png")
+            driver.execute_script("window.scrollTo(0, 660*7);")
+            driver.save_screenshot(settings.MEDIA_ROOT+"naver_main8.png")
 
             # 검색결과를 보여주기 위해, 페이지 전환이 발생할 텐데
             # 찾고자 하는 요소가 렌더링이 될 때까지, 최대 2초 대기
-            condition = EC.presence_of_all_elements_located((By.CLASS_NAME, 'sh_blog_title'))
+            condition = EC.presence_of_all_elements_located((By.CLASS_NAME, 'section_head'))
             WebDriverWait(driver, 2).until(condition)
             print('loaded.')
 
@@ -77,7 +80,7 @@ class NaverCrawl:
                     cafe_list.append({'idx': idx, 'date': date.get_text(), 'title': info.get_text(), 'url': info['href'],
                                  'writer': writer.get_text()})
                 naver_crawl['cafe'] = cafe_list
-            if soup.find(class_='kinn section _kinBase').find_all('li'):
+            if soup.find(class_='kinn section _kinBase'):
                 '''
                 지식in
                 '''
@@ -92,7 +95,7 @@ class NaverCrawl:
                     kin_list.append({'idx': idx, 'date': date.get_text(), 'title': title.get_text(), 'url': url['href'],
                                  'writer': writer.get_text()[4:]})
                 naver_crawl['kin'] = kin_list
-            if soup.find(class_='sp_post section').find_all('li'):
+            if soup.find(class_='sp_post section'):
                 '''
                 포스트
                 '''
@@ -106,9 +109,15 @@ class NaverCrawl:
                     post_list.append({'idx': idx, 'date': date.get_text(), 'title': info.get_text(), 'url': info['href'],
                                  'writer': writer.get_text()})
                 naver_crawl['post'] = post_list
+        except TimeoutException:
+            return "Loading took too much Time!"
         finally:
             driver.quit()
-        return naver_crawl
+            pprint(naver_crawl)
+        if naver_crawl == {}:
+            return "노출된 항목이 없습니다"
+        elif naver_crawl:
+            return naver_crawl
 
     def show_crawl(self, keyword):
         headers = {
@@ -182,5 +191,5 @@ class NaverCrawl:
 
 if __name__ == "__main__":
     a = NaverCrawl()
-    # print(a.do_crawl("확진자"))
-    print(a.show_crawl("확진자"))
+    print(a.do_crawl("확진자"))
+    # print(a.show_crawl("확진자"))

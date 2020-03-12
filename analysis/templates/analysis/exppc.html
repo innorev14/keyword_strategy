@@ -1,35 +1,128 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
-{#            <div class="form-group">#}
-{#                <span class="align-center">#}
-                <form action="{% url 'analysis:index' %}" method="GET" class="form-inline justify-content-center">
-{#                    <div class="row">#}
-{#                        <div class="col-3"></div>#}
-{#                        <div class="col-6">#}
-                            <input type="text" name="q" placeholder="키워드를 입력하세요" class="form-control col-6 mr-lg-2">
-{#                        </div>#}
-{#                        <div class="col-3">#}
-                            <button class="btn btn-outline-success my-2 my-lg-0" type="submit">검색</button>
-{#                            <input type="submit" value="검색" class="btn btn-outline-primary" >#}
-{#                        </div>#}
-{#                    </div>#}
-                </form>
-{#                </span>#}
-{#            </div>#}
-    <div class="text-center">
-        <img src="/media/naver_main.png" class="rounded"  width="300" alt="...">
-        <img src="/media/naver_main3.png" class="rounded" width="300" alt="...">
-        <img src="/media/naver_main5.png" class="rounded" width="300" alt="...">
-        <img src="/media/naver_main7.png" class="rounded" width="300" alt="...">
+
+    <form action="{% url 'analysis:exppc' %}" method="GET" class="form-inline justify-content-center">
+        <input name="q" id="search_input" placeholder="키워드를 입력하세요" class="form-control col-6 mr-lg-2">
+        <button id="search_button" class="btn btn-outline-success my-2 my-lg-0" type="submit">검색</button>
+    </form>
+    <br>
+
+    <div class="container">
+
+        {#    <div class="text-center">#}
+        {#        <img src="/media/naver_main.png" class="rounded"  width="300" alt="...">#}
+        {#        <img src="/media/naver_main3.png" class="rounded" width="300" alt="...">#}
+        {#        <img src="/media/naver_main5.png" class="rounded" width="300" alt="...">#}
+        {#        <img src="/media/naver_main7.png" class="rounded" width="300" alt="...">#}
+        {#    </div>#}
+        {#    <div class="text-center">#}
+        {#        <img src="/media/naver_main2.png" class="rounded" width="300" alt="...">#}
+        {#        <img src="/media/naver_main4.png" class="rounded" width="300" alt="...">#}
+        {#        <img src="/media/naver_main6.png" class="rounded" width="300" alt="...">#}
+        {#        <img src="/media/naver_main8.png" class="rounded" width="300" alt="...">#}
+        {#    </div>#}
+
+        <div class="row justify-content-center">
+            <h3>화면 분석 중입니다.</h3>
+        </div>
+        <div class="row justify-content-center">
+            <img src="{% static 'images/ajax-loader.gif' %}" alt="loading" />
+        </div>
+
+        <div id="exppc">
+            <div class="ajaxProgress">
+                <h3>화면 분석 중입니다.</h3>
+                <img src="{% static 'images/ajax-loader.gif' %}" alt="loading" />
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <table class="table">
+                {% if pc.blog %}
+                    <td>BLOG</td>
+                {% endif %}
+                {% if pc.cafe %}
+                    <td>CAFE</td>
+                {% endif %}
+                {% if pc.post %}
+                    <td>POST</td>
+                {% endif %}
+                {% if pc.kin %}
+                    <td>지식in</td>
+                {% endif %}
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                {% if pc.blog %}
+                    <h2>BLOG</h2>
+                    <ul class="list-group">
+                        {% for item in pc.blog %}
+                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
+                            <li class="list-group-item"><small>제 목 : </small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if pc.cafe %}
+                    <h2>Cafe</h2>
+                    <ul class="list-group">
+                        {% for item in pc.cafe %}
+                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
+                            <li class="list-group-item"><small>제 목 : </small></small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if pc.kin %}
+                    <h2>지식in</h2>
+                    <ul class="list-group">
+                        {% for item in pc.kin %}
+                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
+                            <li class="list-group-item"><small>제 목 : </small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if pc.post %}
+                    <h2>Post</h2>
+                    <ul class="list-group">
+                        {% for item in pc.post %}
+                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
+                            <li class="list-group-item"><small>제 목 : </small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                        {% endfor%}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <div class="text-center">
-        <img src="/media/naver_main2.png" class="rounded" width="300" alt="...">
-        <img src="/media/naver_main4.png" class="rounded" width="300" alt="...">
-        <img src="/media/naver_main6.png" class="rounded" width="300" alt="...">
-        <img src="/media/naver_main8.png" class="rounded" width="300" alt="...">
-    </div>
-    {% for item in pc %}
-        {{ blog }}
-    {% endfor %}
 {% endblock %}
+
+
+{#{% block script %}#}
+{#<script type="text/javascript">#}
+{#    $('#search_button').click(function () {#}
+{#            $('.ajaxProgress').show();#}
+{#            $.ajax({#}
+{#                type: "GET",#}
+{#                dataType: "json",#}
+{#                async: true,#}
+{#                data: {{ pc }},#}
+{#                    success: function (json) {#}
+{#                        $('#exppc').show();#}
+{#                        $('.ajaxProgress').hide();#}
+{#                    }#}
+{#            });#}
+{#    }#}
+{#</script>#}
+{#{% endblock %}#}

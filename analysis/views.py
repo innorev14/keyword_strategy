@@ -146,13 +146,14 @@ class ExposurePC(ListView):
     def get(self, request, *args, **kwargs):
         q = request.GET.get('q', '')
         qq = "{}".format(q)
-        encText = urllib.parse.quote("{}".format(q))
 
-        crawl = NaverCrawl()
-        pc = crawl.do_crawl(encText)
+        if q:
+            crawl = NaverCrawl()
+            pc = crawl.do_crawl(qq)
 
-        context = {
-            'pc': pc,
-        }
-
+            context = {
+                'pc': pc,
+            }
+        else:
+            context = {}
         return render(request, 'analysis/exppc.html', context=context)
