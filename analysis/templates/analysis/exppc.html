@@ -57,13 +57,25 @@
 
         <div class="row">
             <div class="col-3">
+                {% if pc.post %}
+                    <h2>Post</h2>
+                    <ul class="list-group">
+                        {% for item in pc.post %}
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
+                        {% endfor%}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
                 {% if pc.blog %}
-                    <h2>BLOG</h2>
+                    <h2>Blog</h2>
                     <ul class="list-group">
                         {% for item in pc.blog %}
-                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
-                            <li class="list-group-item"><small>제 목 : </small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
-                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -73,9 +85,9 @@
                     <h2>Cafe</h2>
                     <ul class="list-group">
                         {% for item in pc.cafe %}
-                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
-                            <li class="list-group-item"><small>제 목 : </small></small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
-                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"></small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -85,22 +97,10 @@
                     <h2>지식in</h2>
                     <ul class="list-group">
                         {% for item in pc.kin %}
-                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
-                            <li class="list-group-item"><small>제 목 : </small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
-                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-            <div class="col-3">
-                {% if pc.post %}
-                    <h2>Post</h2>
-                    <ul class="list-group">
-                        {% for item in pc.post %}
-                            <li class="list-group-item active"><small>개시일 : {{ item.date }}</small></li>
-                            <li class="list-group-item"><small>제 목 : </small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
-                            <li class="list-group-item"><small>작성자 : {{ item.writer }}</small></li>
-                        {% endfor%}
                     </ul>
                 {% endif %}
             </div>
