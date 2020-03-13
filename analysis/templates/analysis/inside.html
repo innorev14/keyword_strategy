@@ -175,6 +175,74 @@
                 </div>
             </div>
         {% endif %}
+        <div class="row justify-content-center">
+            <table class="table">
+                {% if pc.blog %}
+                    <td>BLOG</td>
+                {% endif %}
+                {% if pc.cafe %}
+                    <td>CAFE</td>
+                {% endif %}
+                {% if pc.post %}
+                    <td>POST</td>
+                {% endif %}
+                {% if pc.kin %}
+                    <td>지식in</td>
+                {% endif %}
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                {% if pc.post %}
+                    <h2>Post</h2>
+                    <ul class="list-group">
+                        {% for item in pc.post %}
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
+                        {% endfor%}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if pc.blog %}
+                    <h2>Blog</h2>
+                    <ul class="list-group">
+                        {% for item in pc.blog %}
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if pc.cafe %}
+                    <h2>Cafe</h2>
+                    <ul class="list-group">
+                        {% for item in pc.cafe %}
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"></small><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if pc.kin %}
+                    <h2>지식in</h2>
+                    <ul class="list-group">
+                        {% for item in pc.kin %}
+                            <li class="list-group-item active"><small>{{ item.date }}</small></li>
+                            <li class="list-group-item"><a href="{{ item.url }}" target="_blank"><small>{{ item.title }}</small></a></li>
+                            <li class="list-group-item"><small>{{ item.writer }}</small></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
     </div>
     <br>
 {% endblock %}

@@ -90,6 +90,9 @@ class InsideView(ListView):
 
         # sorted_view = sorted(rel_data['relCurView'], reverse=True)
 
+        # PC 화면 크롤링
+        # pc = NaverCrawl().do_crawl(qq)
+
         if 'relGenderCount' in rel_data:
             ## 성별 비율 계산
             sum_female = sum(rel_data['relGenderCount']['f'].values())
@@ -122,6 +125,7 @@ class InsideView(ListView):
             graph_label = time_series_data['period']
             graph_data = time_series_data['ratio']
 
+
             context = {
                 'q': q,
                 'reldata': rel_data,
@@ -131,14 +135,21 @@ class InsideView(ListView):
                 'm_age': mage,
                 'labels': graph_label,
                 'data': graph_data,
+                # 'pc': pc,
                 # 'results': data,
             }
         else:
             context = {
                 'reldata': rel_data,
             }
+        if q:
+            crawl = NaverCrawl()
+            pc = crawl.do_crawl(qq)
 
-        return render(request, 'analysis/index.html', context=context)
+            context += {
+                'pc': pc,
+            }
+        return render(request, 'analysis/inside.html', context=context)
 
 class ExposurePC(ListView):
     template_name = 'analysis/exppc.html'
