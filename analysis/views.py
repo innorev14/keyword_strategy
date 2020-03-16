@@ -90,9 +90,6 @@ class InsideView(ListView):
 
         # sorted_view = sorted(rel_data['relCurView'], reverse=True)
 
-        # PC 화면 크롤링
-        # pc = NaverCrawl().do_crawl(qq)
-
         if 'relGenderCount' in rel_data:
             ## 성별 비율 계산
             sum_female = sum(rel_data['relGenderCount']['f'].values())
@@ -135,7 +132,6 @@ class InsideView(ListView):
                 'm_age': mage,
                 'labels': graph_label,
                 'data': graph_data,
-                # 'pc': pc,
                 # 'results': data,
             }
         else:
@@ -146,9 +142,8 @@ class InsideView(ListView):
             crawl = NaverCrawl()
             pc = crawl.do_crawl(qq)
 
-            context += {
-                'pc': pc,
-            }
+            context['pc'] = pc
+
         return render(request, 'analysis/inside.html', context=context)
 
 class ExposurePC(ListView):

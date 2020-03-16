@@ -17,7 +17,7 @@
             <br>
             {#            <div class="form-group">#}
             {#                <span class="align-center">#}
-            <form action="{% url 'analysis:index' %}" method="GET" class="form-inline justify-content-center">
+            <form action="{% url 'analysis:inside' %}" method="GET" class="form-inline justify-content-center">
                 {#                    <div class="row">#}
                 {#                        <div class="col-3"></div>#}
                 {#                        <div class="col-6">#}
@@ -33,163 +33,147 @@
             {#            </div>#}
             <br>
         </div>
-            <div class="row">
-                <div class="col-4">
-                    <table class="table table-sm table-hover">
-                        <h6>연관키워드 TOP 20</h6>
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>순위</th>
-                            <th>연관키워드 </th>
-                            <th>최근 월조회수</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            {% for data in reldata.relData|dictsortreversed:"relCurView"|slice:":20" %}
-                                {% if q == data.relKeyword %}
-                                    <th scope="row" class="bg-warning">{{ forloop.counter }}</th>
-                                    <td class="bg-warning">{{ data.relKeyword }}</td>
-                                    <td class="bg-warning">{{ data.relCurView|intcomma }}</td>
-                                {% else %}
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <td>{{ data.relKeyword }}</td>
-                                    <td>{{ data.relCurView|intcomma }}</td>
-                                {% endif %}
-                                </tr>
+        <div class="row">
+            <div class="col-4">
+                <table class="table table-sm table-hover">
+                    <h6>연관키워드 TOP 20</h6>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>순위</th>
+                        <th>연관키워드 </th>
+                        <th>최근 월조회수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for data in reldata.relData|dictsortreversed:"relCurView"|slice:":20" %}
+                            {% if q == data.relKeyword %}
+                                <th scope="row" class="bg-warning">{{ forloop.counter }}</th>
+                                <td class="bg-warning">{{ data.relKeyword }}</td>
+                                <td class="bg-warning">{{ data.relCurView|intcomma }}</td>
+                            {% else %}
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ data.relKeyword }}</td>
+                                <td>{{ data.relCurView|intcomma }}</td>
+                            {% endif %}
+                            </tr>
+                            <tr></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-8">
+                <br>
+                <div class="p-3 border border-primary">
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="table table-sm table-striped">
+                                <h5>{{ reldata.keyword }}에 대한 검색결과</h5>
+                                <thead class="table-info">
+                                <th colspan="6">키워드 순위</th>
+                                </thead>
+                                <tbody>
+                                <td>
+                                    {% for data in reldata.relData|dictsortreversed:"relCurView"%}
+                                        {% if q == data.relKeyword %}
+                                            <th>{{ forloop.counter }}</th>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>/   {{ reldata.relData|length }}</td>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-6">
+                            <table class="table table-sm table-striped">
+                                <h6>총조회수</h6>
+                                <thead class="table-info">
+                                <th>PC</th>
+                                <th>모바일</th>
+                                </thead>
+                                <tbody>
+                                <td>{{ reldata.curPC|intcomma }}</td>
+                                <td>{{ reldata.curMobile|intcomma }}</td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="table table-sm table-striped">
+                                <h6>남여비율</h6>
+                                <thead class="table-info">
+                                <th>남</th>
+                                <th>여</th>
+                                </thead>
+                                <tbody>
+                                <td>{{ f_ratio }}%</td>
+                                <td>{{ m_ratio }}%</td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <table class="table table-sm table-striped">
+                                <h6>연령별 비율</h6>
+                                <thead class="table-info">
+                                <th></th>
+                                <th>10-12</th>
+                                <th>13-19</th>
+                                <th>20-24</th>
+                                <th>25-29</th>
+                                <th>30-39</th>
+                                <th>40-49</th>
+                                <th>50-</th>
+                                </thead>
+
+                                <tbody>
+                                <td>남</td>
+                                {% for mage in m_age %}
+                                    <td>{{ mage }}%</td>
+                                {% endfor %}
                                 <tr></tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-8">
-                    <br>
-                    <div class="p-3 border border-primary">
-                        <div class="row">
-                            <div class="col-6">
-                                <table class="table table-sm table-striped">
-                                    <h5>{{ reldata.keyword }}에 대한 검색결과</h5>
-                                    <thead class="table-info">
-                                    <th colspan="6">키워드 순위</th>
-                                    </thead>
-                                    <tbody>
-                                    <td>
-                                        {% for data in reldata.relData|dictsortreversed:"relCurView"%}
-                                            {% if q == data.relKeyword %}
-                                                <th>{{ forloop.counter }}</th>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </td>
-                                    <td>/   {{ reldata.relData|length }}</td>
-                                    </tbody>
-                                </table>
+                                <td>여</td>
+                                {% for fage in f_age %}
+                                    <td>{{ fage }}%</td>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+                            <div id="container" style="width: 100%;">
+                                <canvas id="line-chart"></canvas>
                             </div>
+                            <script>
 
-                            <div class="col-6">
-                                <table class="table table-sm table-striped">
-                                    <h6>총조회수</h6>
-                                    <thead class="table-info">
-                                    <th>PC</th>
-                                    <th>모바일</th>
-                                    </thead>
-                                    <tbody>
-                                    <td>{{ reldata.curPC|intcomma }}</td>
-                                    <td>{{ reldata.curMobile|intcomma }}</td>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-6">
-                                <table class="table table-sm table-striped">
-                                    <h6>남여비율</h6>
-                                    <thead class="table-info">
-                                    <th>남</th>
-                                    <th>여</th>
-                                    </thead>
-                                    <tbody>
-                                    <td>{{ f_ratio }}%</td>
-                                    <td>{{ m_ratio }}%</td>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <br>
-                            <div class="col-12">
-                                <table class="table table-sm table-striped">
-                                    <h6>연령별 비율</h6>
-                                    <thead class="table-info">
-                                    <th></th>
-                                    <th>10-12</th>
-                                    <th>13-19</th>
-                                    <th>20-24</th>
-                                    <th>25-29</th>
-                                    <th>30-39</th>
-                                    <th>40-49</th>
-                                    <th>50-</th>
-                                    </thead>
+                                var config = {
+                                    type: 'line',
+                                    data: {
+                                        datasets: [{
+                                            data: {{ data|safe }},
+                                            backgroundColor: [
+                                                '#00c73c'
+                                            ],
+                                            label: '검색량 추이'
+                                        }],
+                                        labels: {{ labels|safe }}
+                                    },
+                                    options: {
+                                        responsive: true
+                                    }
+                                };
 
-                                    <tbody>
-                                    <td>남</td>
-                                    {% for mage in m_age %}
-                                        <td>{{ mage }}%</td>
-                                    {% endfor %}
-                                    <tr></tr>
-                                    <td>여</td>
-                                    {% for fage in f_age %}
-                                        <td>{{ fage }}%</td>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-                                <div id="container" style="width: 100%;">
-                                    <canvas id="line-chart"></canvas>
-                                </div>
-                                <script>
+                                window.onload = function() {
+                                    var ctx = document.getElementById('line-chart').getContext('2d');
+                                    window.myPie = new Chart(ctx, config);
+                                };
 
-                                    var config = {
-                                        type: 'line',
-                                        data: {
-                                            datasets: [{
-                                                data: {{ data|safe }},
-                                                backgroundColor: [
-                                                    '#00c73c'
-                                                ],
-                                                label: '검색량 추이'
-                                            }],
-                                            labels: {{ labels|safe }}
-                                        },
-                                        options: {
-                                            responsive: true
-                                        }
-                                    };
+                            </script>
 
-                                    window.onload = function() {
-                                        var ctx = document.getElementById('line-chart').getContext('2d');
-                                        window.myPie = new Chart(ctx, config);
-                                    };
-
-                                </script>
-
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="row justify-content-center">
-            <table class="table">
-                {% if pc.blog %}
-                    <td>BLOG</td>
-                {% endif %}
-                {% if pc.cafe %}
-                    <td>CAFE</td>
-                {% endif %}
-                {% if pc.post %}
-                    <td>POST</td>
-                {% endif %}
-                {% if pc.kin %}
-                    <td>지식in</td>
-                {% endif %}
-            </table>
         </div>
-
+        <br>
         <div class="row">
             <div class="col-3">
                 {% if pc.post %}
