@@ -1,17 +1,11 @@
-import json
 import urllib
-from datetime import date
-from pprint import pprint
 
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from config import settings
-from naver_ads_api import SearchAdsSession
-from naver_keyword_strategy import KeywordInfoAPI
-from naver_main_crawling import NaverCrawl
-from naver_trend_api import NaverTrendAPI
-from .models import MonthAnalysis
+from analysis.module.naver_keyword_strategy import KeywordInfoAPI
+from analysis.module.naver_main_crawling import NaverCrawl
+from analysis.module.naver_trend_api import NaverTrendAPI
 
 
 class IndexView(ListView):

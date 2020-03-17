@@ -14,7 +14,7 @@ from config import settings
 class NaverCrawl:
     def do_crawl(self, keyword):
         # Selenium으로 브라우저 구동
-        driver = webdriver.Chrome('./analysis/module/chromedriver.exe')
+        driver = webdriver.Chrome('chromedriver.exe')
         # driver.implicitly_wait(3)  # seconds
         driver.get('http://naver.com')  # 지정 주소의 웹페이지 방문
         try:

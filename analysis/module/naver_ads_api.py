@@ -11,7 +11,7 @@ def curDate():
 
 
 def Error_Log(func, e):
-    with open('./error_log.csv', 'a') as f:
+    with open('../../error_log.csv', 'a') as f:
         wr = csv.writer(f)
         try:
             year, month, day = curDate()

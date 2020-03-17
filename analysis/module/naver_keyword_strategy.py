@@ -1,12 +1,6 @@
-import json
-import urllib
-from datetime import date
 from pprint import pprint
 
-from django.conf import settings
-from tqdm import tqdm
-
-from naver_ads_api import SearchAdsSession, AdsParsing, SearchAdsAPI
+from analysis.module.naver_ads_api import SearchAdsSession, AdsParsing, SearchAdsAPI
 #from naver_trend_api import NaverTrendAPI
 
 
