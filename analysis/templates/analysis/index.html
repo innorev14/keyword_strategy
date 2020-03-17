@@ -34,7 +34,7 @@
             <br>
         </div>
             <div class="row">
-                <div class="col-4">
+                <div class="col-4 shadow-sm p-3 mb-5 bg-white rounded">
                     <table class="table table-sm table-hover">
                         <h6>연관키워드 TOP 20</h6>
                         <thead class="thead-dark">
@@ -70,7 +70,7 @@
                                 <table class="table table-sm table-striped">
                                     <h5>{{ reldata.keyword }}에 대한 검색결과</h5>
                                     <thead class="table-info">
-                                    <th colspan="6">키워드 순위</th>
+                                    <th colspan="6">키워드 순위 <i class="las la-sort-amount-down"></th>
                                     </thead>
                                     <tbody>
                                     <td>
@@ -89,8 +89,8 @@
                                 <table class="table table-sm table-striped">
                                     <h6>총조회수</h6>
                                     <thead class="table-info">
-                                    <th>PC</th>
-                                    <th>모바일</th>
+                                    <th>PC <i class="las la-desktop"></th>
+                                    <th>모바일 <i class="las la-mobile"></th>
                                     </thead>
                                     <tbody>
                                     <td>{{ reldata.curPC|intcomma }}</td>
@@ -102,8 +102,8 @@
                                 <table class="table table-sm table-striped">
                                     <h6>남여비율</h6>
                                     <thead class="table-info">
-                                    <th>남</th>
-                                    <th>여</th>
+                                    <th>남 <i class="las la-male"></th>
+                                    <th>여 <i class="las la-female"></th>
                                     </thead>
                                     <tbody>
                                     <td>{{ f_ratio }}%</td>

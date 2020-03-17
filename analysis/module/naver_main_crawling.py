@@ -7,14 +7,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from bs4 import BeautifulSoup
-
-from config import settings
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class NaverCrawl:
     def do_crawl(self, keyword):
         # Selenium으로 브라우저 구동
-        driver = webdriver.Chrome('chromedriver.exe')
+        driver = webdriver.Chrome(ChromeDriverManager().install())
         # driver.implicitly_wait(3)  # seconds
         driver.get('http://naver.com')  # 지정 주소의 웹페이지 방문
         try:
